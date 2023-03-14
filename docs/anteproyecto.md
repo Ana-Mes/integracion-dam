@@ -1,24 +1,15 @@
 # Anteproyecto
 
-> NOTA: Incluir diagramas donde proceda (diagramas de clases, casos de uso, entidad relación, ...).
-
 ## OBJETIVOS
 
-*[TODO] Se indicará de forma genérica y sin entrar en concreciones el objetivo
-que se pretende alcanzar al realizar el proyecto. Se indicará igualmente donde
-será utilizado el proyecto obtenido.*
-
-## PREANALISIS DE LO EXISTENTE (Opcional)
-
-*[TODO] Si procede, se informará brevemente sobre el funcionamiento del sistema actual. El que vamos a reemplazar o a mejorar. Este sistema no tiene por qué estar necesariamente automatizado pudiendo realizarse actualmente de forma manual por personas.*
+Se creará una aplicación que permita consultar el estado de las mareas, la temperatura, el viento y el tiempo en la isla de Tenerife del día que el usuario decida. Esta aplicación está pensada para usuarios que disfrutan realizando actividades como surf, buceo, snorkel o simplemente quieren consultar este tipo de información para ir a la playa.
 
 ## ANÁLISIS DEL SOFTWARE
 
-*[TODO] Determinar de forma genérica lo que tiene que hacer el software y cuáles son los requisitos que debe cumplir.*
-
-*Si el proyecto trata sobre la adaptación o ampliación de algún software existente, se deberá aportar información sobre el mismo (documentos electrónicos, direcciones URL, etc.), delimitando claramente cuál será el trabajo que se realizará y que funcionalidad ya está implementada.*
-
-> *Incuir los diagramas necesarios*
+Requisitos:
+  - Mostrar la información del día elegido por el usuario.
+  - Dar opciones al usuario para elegir (en vez de un día en concreto ver la información de una semana por ejemplo).
+  - Uso de diferentes Apis para la recolección de la información necesaria.
 
 ## DISEÑO DEL SOFTWARE
 
