@@ -2,14 +2,10 @@
 
 ## OBJETIVOS
 
-Se creará una aplicación que permita consultar el estado de las mareas, la temperatura, el viento y el tiempo en la isla de Tenerife del día que el usuario decida. Esta aplicación está pensada para usuarios que disfrutan realizando actividades como surf, buceo, snorkel o simplemente quieren consultar este tipo de información para ir a la playa.
+El objetivo de la aplicación será mostrar los puntos de buceo de Tenerife. Los usuarios podrán dejar comentarios y valoraciones sobre las inversiones.
 
 ## ANÁLISIS DEL SOFTWARE
 
-Requisitos:
-  - Mostrar la información del día elegido por el usuario.
-  - Dar opciones al usuario para elegir (en vez de un día en concreto ver la información de una semana por ejemplo).
-  - Uso de diferentes Apis para la recolección de la información necesaria.
 
 ## DISEÑO DEL SOFTWARE
 
