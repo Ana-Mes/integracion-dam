@@ -6,9 +6,7 @@ El objetivo de la aplicación será mostrar los puntos de buceo de Tenerife. Los
 
 ## ANÁLISIS DEL SOFTWARE
 
-El principal objetivo de la aplicación es que los usuarios puedan conocer los diferentes puntos de inversión, pero además conocer la opinión de otros usuarios e incluso dejar la suya propia. 
-
-Otros objetivos:
+Los objetivos principales de la aplicación son:
 - Mostrar al usuario los diferentes puntos de inversión de Tenerife
 - Al elegir un punto mostrar la información de este y las valoraciones y comentarios de otros usuarios
 - Permitir al usuario añadir su valoración, una vez haya iniciado sesión
