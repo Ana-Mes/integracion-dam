@@ -12,6 +12,8 @@ Los objetivos principales de la aplicación son:
 - Permitir al usuario añadir su valoración, una vez haya iniciado sesión
 - El administrador del sitio podrá eliminar usuarios y/o comentarios
 
+## <img src="./images/casos_de_uso.png"/>
+
 ## DISEÑO DEL SOFTWARE
 
 *[TODO] Propuesta de posibles opciones de implementación del software que hay que construir, determinar cómo se va a llevar a cabo la implementación.*
