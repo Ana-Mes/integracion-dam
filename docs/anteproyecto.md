@@ -16,10 +16,12 @@ Los objetivos principales de la aplicación son:
 
 ## DISEÑO DEL SOFTWARE
 
-*[TODO] Propuesta de posibles opciones de implementación del software que hay que construir, determinar cómo se va a llevar a cabo la implementación.*
+El desarrollo de la aplicación se realizará con Python y Django. Se empezará planteando el frontend y el modelo de datos para luego desarrollar el backend.
 
->  *Incluir los diagramas necesarios.*
+- El frontend se desarrollará con los templates o plantillas generados con Django, HTML, CSS.
+- El backend se desarrollará con Python.
+- Para almacenar la información se utilizará una base de datos Sqlite administrada por Django.
 
 ## ESTIMACIÓN DE COSTES
 
-El único coste será temporal, ya que no se usarán recursos que tengan algún gasto. La duración del desarrollo de la aplicación será de aproximadamente 100 horas
+El único coste será temporal, ya que en principio no se usarán recursos que tengan algún gasto. La duración del desarrollo de la aplicación será de aproximadamente 100 horas
