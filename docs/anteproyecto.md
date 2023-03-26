@@ -22,6 +22,10 @@ El desarrollo de la aplicación se realizará con Python y Django. Se empezará 
 - El backend se desarrollará con Python.
 - Para almacenar la información se utilizará una base de datos Sqlite administrada por Django.
 
+Diagrama entidad-relación
+
+## <img src="./images/diagrama_entidad_relacion.png"/>
+
 ## ESTIMACIÓN DE COSTES
 
 El único coste será temporal, ya que en principio no se usarán recursos que tengan algún gasto. La duración del desarrollo de la aplicación será de aproximadamente 100 horas
