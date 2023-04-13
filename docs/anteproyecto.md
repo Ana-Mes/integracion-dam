@@ -20,7 +20,7 @@ El desarrollo de la aplicación se realizará con Python y Django. Se empezará 
 
 - El frontend se desarrollará con los templates o plantillas generados con Django, HTML, CSS.
 - El backend se desarrollará con Python.
-- Para almacenar la información se utilizará una base de datos Sqlite administrada por Django.
+- Para almacenar la información se utilizará una base de datos MySQL administrada por Django.
 
 Diagrama entidad-relación
 
