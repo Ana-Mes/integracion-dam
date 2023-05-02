@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Reviews{% endblock %}
+{% block content %}
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" 
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    <defs>
+      <symbol id="md-star" viewBox="0 0 32 32">
+        <path d="M16 23.027l8.24 4.973-2.187-9.373 7.28-6.307-9.587-0.813-3.747-8.84-3.747 8.84-9.587 0.813 7.28 6.307-2.187 9.373z"></path>
+      </symbol>
+    </defs>
+</svg>
+
+<main role="main">
+  <div class="container mb-4">
+    {% for divingspot in divingspot_list|dictsort:"id" reversed %}
+      <div class="row mt-3">
+        <div class="col-md-9 mx-auto">
+            <div class="card" style="width: 18rem;">
+                <img src="{{divingspot.image.url}}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <div class="card-title">
+                      <div class="d-inline fw-bold">{{ divingspot.name }}</div>
+                      <div class="d-inline float-end">
+                        {% if divingspot.score == 0 %}
+                          Sin puntuación
+                        {% else %}
+                          <svg class="svg-icon md-star" style="width: 22; height: 22; fill: #ffc107">
+                            <use xlink:href="#md-star"></use>
+                          </svg>
+                          {{ divingspot.score }}
+                        {% endif %}
+                      </p>
+                    </div>
+                    <p class="card-text">{{ divingspot.description|safe }}</p>
+                    <a href="{{divingspot.location}}" class="btn btn-primary" target="_blank">Ver en Google Maps</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
