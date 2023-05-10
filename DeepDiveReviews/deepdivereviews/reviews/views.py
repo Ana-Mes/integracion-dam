@@ -27,19 +27,9 @@ class DivingSpotCreate(CreateView):
     model = DivingSpot
     form_class = DivingSpotForm
 
-    """ def divingspot(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            form = DivingSpotForm(request.POST)
-            if form.is_valid():
-                divingspot = self.get_object()
-                form.instance.author = request.user
-                form.instance.divingspot = divingspot
-                form.save()
-
-                return reverse_lazy('reviews:reviews')
-                
-        else:
-            form = DivingSpotForm() """
+    def form_valid(self, form):
+        form.instance.author = self.request.user # Asignar el usuario actual como autor
+        return super().form_valid(form)
         
 
     success_url = reverse_lazy('reviews:reviews')

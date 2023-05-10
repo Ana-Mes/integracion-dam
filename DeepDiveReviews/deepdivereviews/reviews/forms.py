@@ -5,7 +5,7 @@ class DivingSpotForm(forms.ModelForm):
 
     class Meta:
         model = DivingSpot
-        fields = ['name', 'description', 'image', 'location', 'author', 'score']
+        fields = ['name', 'description', 'image', 'location']
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre'}),
             'description': forms.Textarea(attrs={'class':'form-control'}),
@@ -14,7 +14,7 @@ class DivingSpotForm(forms.ModelForm):
 
         }
         labels = {
-            'name':'', 'description':'', 'image':'', 'location':'', 'author':'', 'score':''
+            'name':'', 'description':'', 'image':'', 'location':''
         }
 
 class CommentForm(forms.ModelForm):
