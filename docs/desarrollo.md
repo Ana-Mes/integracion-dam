@@ -1,6 +1,6 @@
 # Desarrollo
 
-- Figma: editor para el diseño del frontend
+- [Figma](https://www.figma.com/): editor para el diseño del frontend
 - Bootstrap 5: biblioteca para dar estilos y algunas funcionalidades al frontend
 - Django: framework para el desarrollo de la aplicación web
 - Python: lenguaje de programación para el backend
