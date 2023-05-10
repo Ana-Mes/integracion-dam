@@ -12,34 +12,35 @@ class DivingSpot(models.Model):
     description = RichTextField(verbose_name="Descripción")
     image = models.ImageField(verbose_name="Imagen", upload_to="divingspot")
     location = models.TextField(verbose_name="Localización", max_length=500)
-    score = models.IntegerField(verbose_name="Puntuación", default=0,
-            validators=[
-                MaxValueValidator(5),
-                MinValueValidator(0)
-            ]
-        )
+    score = models.IntegerField(verbose_name="Puntuación", default=0)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
 
     class Meta:
-        verbose_name = "reseña"
-        verbose_name_plural = "reseñas"
+        verbose_name = "punto de inmersión"
+        verbose_name_plural = "puntos de inmersión"
         ordering = ['name']
 
     def __str__(self):
         return self.name
 
 class Comment(models.Model):
-    divingspot = models.ForeignKey('DivingSpot', on_delete=models.CASCADE, verbose_name="Localización")
+    divingspot = models.ForeignKey('DivingSpot', on_delete=models.CASCADE, verbose_name="Punto de inmersión")
     title = models.CharField(verbose_name="Título", max_length=200)
     content = models.TextField(verbose_name="Contenido")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
+    score = models.IntegerField(verbose_name="Puntuación", default=0,
+            validators=[
+                MaxValueValidator(5),
+                MinValueValidator(0)
+            ]
+        )
 
     class Meta:
         ordering = ['created']
 
-class Thread(models.Model):
+""" class Thread(models.Model):
     users = models.ManyToManyField(User, related_name='threads')
     comments = models.ManyToManyField(Comment)
     updated = models.DateTimeField(auto_now=True)
@@ -68,4 +69,4 @@ def comments_changed(sender, **kwargs):
     # Forzar la actualización haciendo save
     instance.save()
 
-m2m_changed.connect(comments_changed, sender=Thread.comments.through)
+m2m_changed.connect(comments_changed, sender=Thread.comments.through) """

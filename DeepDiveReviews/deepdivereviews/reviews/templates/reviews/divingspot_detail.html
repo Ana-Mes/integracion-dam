@@ -1,0 +1,141 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{divingspot.name}}{% endblock %}
+{% block content %}
+{% include 'reviews/includes/divingspots_menu.html'%}
+
+    <div class="container-fluid">
+        <div class="d-block mt-3">
+            <p class="section-heading m-0 fw-bold">{{divingspot.name}}</p>
+        </div>
+        <div class="d-block mb-1">
+            {% if divingspot.score == 0 %}
+                Sin puntuación
+            {% else %}
+                <span class="fa fa-star checked"></span>
+                {{ divingspot.score }}
+            {% endif %}
+        </div>
+        <div class="row row-cols-2">
+            <div class="col">
+                <img src="{{divingspot.image.url}}" class="w-100" style="border-radius: 5%;" alt="">
+            </div>
+            <div class="col">
+                {{ divingspot.description|safe }}
+            </div>
+        </div>
+        <p class="fw-bold mt-3">Comentarios</p>
+        <div class="row row-cols-3">
+            <div class="col">
+                Aquí hay un comentario
+            </div>
+            <div class="col">
+                Aquí hay otro comentario
+            </div>
+            <div class="col">
+                Aquí hay otro comentario
+            </div>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Añadir comentario
+                </button>
+            </div>
+        {% endif %}
+        <!-- Modal para agregar un comentario -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="" method="post">{% csrf_token %}
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Añadir comentario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <button class="fa fa-star checked star-btn" id="first"></button>
+                            <button class="fa fa-star star-btn" id="second"></button>
+                            <button class="fa fa-star star-btn" id="third"></button>
+                            <button class="fa fa-star star-btn" id="fourth"></button>
+                            <button class="fa fa-star star-btn" id="fifth"></button>
+                            <p>{{ form.as_p }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Añadir</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        // obtener todas las estrellas
+        const one = document.getElementById('first')
+        const two = document.getElementById('second')
+        const three = document.getElementById('third')
+        const four = document.getElementById('fourth')
+        const five = document.getElementById('fifth')
+
+        /* const form = document
+
+        const handleStarSelect = (size) => {
+            const children = form.children 
+            console.log(children)
+        }
+
+        handleStarSelect(2) */
+
+        // versión larga - a optimizar
+        const handSelect = (selection) => {
+            switch(selection){
+                case 'first': {
+                    one.classList.add('checked')
+                    two.classList.remove('checked')
+                    three.classList.remove('checked')
+                    four.classList.remove('checked')
+                    five.classList.remove('checked')
+                    return
+                }
+                case 'second': {
+                    one.classList.add('checked')
+                    two.classList.add('checked')
+                    three.classList.remove('checked')
+                    four.classList.remove('checked')
+                    five.classList.remove('checked')
+                    return
+                }
+                case 'third': {
+                    one.classList.add('checked')
+                    two.classList.add('checked')
+                    three.classList.add('checked')
+                    four.classList.remove('checked')
+                    five.classList.remove('checked')
+                    return
+                }
+                case 'fourth': {
+                    one.classList.add('checked')
+                    two.classList.add('checked')
+                    three.classList.add('checked')
+                    four.classList.add('checked')
+                    five.classList.remove('checked')
+                    return
+                }
+                case 'fifth': {
+                    one.classList.add('checked')
+                    two.classList.add('checked')
+                    three.classList.add('checked')
+                    four.classList.add('checked')
+                    five.classList.add('checked')
+                    return
+                }
+            }
+        }
+
+        const arr = [one, two, three, four, five]
+         arr.forEach(item=> item.addEventListener('mouseover', (event)=>{
+            handSelect(event.target.id)
+         }))
+    </script>
+{% endblock %}

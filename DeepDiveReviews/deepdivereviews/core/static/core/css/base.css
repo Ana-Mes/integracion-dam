@@ -5,7 +5,16 @@
     transform: translate(-50%, -50%);
   }
 
-#navbar-container{
-    margin-right: 10%;
-    margin-left: 10%;
-  }
+.container-fluid{
+  padding-right: 10rem!important;
+  padding-left: 10rem!important;
+}
+
+.checked {
+  color: #ffc107;
+}
+
+.star-btn {
+  background-color: inherit !important;
+  border: 0 !important;
+}
