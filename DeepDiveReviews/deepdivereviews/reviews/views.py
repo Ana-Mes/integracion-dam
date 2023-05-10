@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from .models import DivingSpot, Comment
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import CommentForm, DivingSpotForm
 
@@ -32,6 +32,20 @@ class DivingSpotCreate(CreateView):
         return super().form_valid(form)
         
 
+    success_url = reverse_lazy('reviews:reviews')
+
+@method_decorator(staff_member_required, name='dispatch')
+class DivingSpotUpdate(UpdateView):
+    model = DivingSpot
+    form_class = DivingSpotForm
+    template_name_suffix = '_update_form'
+    
+    def get_success_url(self):
+        return reverse_lazy('reviews:update', args=[self.object.id]) + '?ok'
+    
+@method_decorator(staff_member_required, name='dispatch')   
+class DivingSpotDelete(DeleteView):
+    model = DivingSpot
     success_url = reverse_lazy('reviews:reviews')
 
 class CommentCreate(CreateView):

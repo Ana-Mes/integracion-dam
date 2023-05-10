@@ -23,6 +23,10 @@
             <div class="col">
                 {{ divingspot.description|safe }}
             </div>
+            {% if request.user.is_staff %}
+                <p><a href="{% url 'reviews:update' divingspot.id %}">Editar</a></p>
+                <p><a href="{% url 'reviews:delete' divingspot.id %}">Borrar</a></p>
+            {% endif %}
         </div>
         <p class="fw-bold mt-3">Comentarios</p>
         <div class="row row-cols-3">

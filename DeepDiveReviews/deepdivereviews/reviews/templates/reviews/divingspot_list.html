@@ -23,11 +23,21 @@
                       </p>
                     </div>
                     <p class="card-text">{{ divingspot.description|safe }}</p>
-                    <a href="{% url 'reviews:review' divingspot.id divingspot.name|slugify %}" class="stretched-link"></a>
+                    <a href="{% url 'reviews:review' divingspot.id divingspot.name|slugify %}" class="stretched-link" 
+                      style="z-index: 1;"></a>
                     <a href="{{divingspot.location}}" class="btn btn-primary position-relative" style="z-index: 2;" target="_blank">
                       Ver en Google Maps
                     </a>
-                    
+                    {% if request.user.is_staff %}
+                      <p>
+                        <a href="{% url 'reviews:update' divingspot.id %}" class="btn btn-primary position-relative mt-3"style="z-index: 2;">
+                          Editar
+                        </a>
+                        <a href="{% url 'reviews:delete' divingspot.id %}" class="btn btn-danger position-relative mt-3"style="z-index: 2;">
+                          Borrar
+                        </a>
+                      </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
