@@ -3,7 +3,9 @@
 {% block title %}{{divingspot.name}}{% endblock %}
 {% block content %}
 {% include 'reviews/includes/divingspots_menu.html'%}
-
+<style>
+    .avatar  { width:50px; height:50px; float:left; margin-right:10px; }
+  </style>
     <div class="container-fluid">
         <div class="d-block mt-3">
             <p class="section-heading m-0 fw-bold">{{divingspot.name}}</p>
@@ -28,21 +30,24 @@
                 <p><a href="{% url 'reviews:delete' divingspot.id %}">Borrar</a></p>
             {% endif %}
         </div>
-        <p class="fw-bold mt-3">Comentarios</p>
+        <p class="fw-bold mt-3">Comentarios ({{divingspot_comments_count}})</p>
         <div class="row row-cols-3">
+            {% for comment in divingspot_comments %}
             <div class="col">
-                Aquí hay un comentario
+                <div class="media">
+                    <img class="avatar" src="{{comment.author.profile.avatar.url}}" alt="profile image">
+                    <div class="media-body">
+                      <p class="mt-0">{{comment.author}}</h5>
+                      <p class="d-inline float-end">{{comment.score}}</p>
+                      {{comment.content}}
+                    </div>
+                  </div>
             </div>
-            <div class="col">
-                Aquí hay otro comentario
-            </div>
-            <div class="col">
-                Aquí hay otro comentario
-            </div>
+            {% endfor %}
         </div>
         {% if request.user.is_authenticated %}
             <div class="text-center mt-3">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Añadir comentario
                 </button>
             </div>
@@ -50,18 +55,18 @@
         <!-- Modal para agregar un comentario -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form action="" method="post">{% csrf_token %}
+                <form action="{% url 'reviews:review' divingspot.id divingspot.name|slugify %}" method="POST">{% csrf_token %}
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Añadir comentario</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <button class="fa fa-star checked star-btn" id="first"></button>
+                            <!-- <button class="fa fa-star checked star-btn" id="first"></button>
                             <button class="fa fa-star star-btn" id="second"></button>
                             <button class="fa fa-star star-btn" id="third"></button>
                             <button class="fa fa-star star-btn" id="fourth"></button>
-                            <button class="fa fa-star star-btn" id="fifth"></button>
+                            <button class="fa fa-star star-btn" id="fifth"></button> -->
                             <p>{{ form.as_p }}</p>
                         </div>
                         <div class="modal-footer">
@@ -76,12 +81,12 @@
     </div>
     <script>
         // obtener todas las estrellas
-        const one = document.getElementById('first')
+        /* const one = document.getElementById('first')
         const two = document.getElementById('second')
         const three = document.getElementById('third')
         const four = document.getElementById('fourth')
         const five = document.getElementById('fifth')
-
+ */
         /* const form = document
 
         const handleStarSelect = (size) => {
@@ -92,7 +97,7 @@
         handleStarSelect(2) */
 
         // versión larga - a optimizar
-        const handSelect = (selection) => {
+        /* const handSelect = (selection) => {
             switch(selection){
                 case 'first': {
                     one.classList.add('checked')
@@ -140,6 +145,6 @@
         const arr = [one, two, three, four, five]
          arr.forEach(item=> item.addEventListener('mouseover', (event)=>{
             handSelect(event.target.id)
-         }))
-    </script>
+         }))*/
+    </script> 
 {% endblock %}
