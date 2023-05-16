@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from hitcount.views import HitCountDetailView
 from django.urls import reverse_lazy
 from .forms import CommentForm, DivingSpotForm
+from django.db.models import Sum
 
 class StaffRequiredMixin(object):
     """ 
@@ -35,13 +36,25 @@ class ReviewDetailView(HitCountDetailView):
             return self.get(request, *args, **kwargs) 
         
     def get_context_data(self, **kwargs):
+        divingspot = self.get_object()
         divingspot_comments_count = Comment.objects.all().filter(divingspot=self.object.id).count()
         divingspot_comments = Comment.objects.all().filter(divingspot=self.object.id)
+        comments_score = divingspot_comments.aggregate(Sum('score'))['score__sum']
+
+        if(comments_score is None):
+            divingspot.score = 0
+
+        else:
+            divingspot.score = comments_score/divingspot_comments_count
+        
+        divingspot.save()
+
         context = super().get_context_data(**kwargs)
         context.update({
             'form':self.form,
             'divingspot_comments': divingspot_comments,
             'divingspot_comments_count': divingspot_comments_count,
+            #'divingspot_score': divingspot_score
         })
         return context
     

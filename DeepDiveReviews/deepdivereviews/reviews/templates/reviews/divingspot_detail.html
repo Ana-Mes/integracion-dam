@@ -37,9 +37,37 @@
                 <div class="media">
                     <img class="avatar" src="{{comment.author.profile.avatar.url}}" alt="profile image">
                     <div class="media-body">
-                      <p class="mt-0">{{comment.author}}</h5>
-                      <p class="d-inline float-end">{{comment.score}}</p>
-                      {{comment.content}}
+                        <p class="mt-0 d-inline">{{comment.author}}</h5>
+                        <p class=" float-end">
+                            <span class="fa fa-star checked star-btn" id="first"></span>
+                            {% if  comment.score >= 2 %}
+                            <span class="fa fa-star star-btn checked" id="second"></span>
+                            {% else  %}
+                            <span class="fa fa-star star-btn" id="second"></span>
+                            {% endif %}
+
+                            {% if  comment.score >= 3 %}
+                            <span class="fa fa-star star-btn checked"></span>
+                            {% else  %}
+                            <span class="fa fa-star star-btn"></span>
+                            {% endif %}
+                            
+                            {% if  comment.score >= 4 %}
+                            <span class="fa fa-star star-btn checked"></span>
+                            {% else  %}
+                            <span class="fa fa-star star-btn"></span>
+                            {% endif %}
+
+                            {% if  comment.score == 5 %}
+                            <span class="fa fa-star star-btn checked"></span>
+                            {% else  %}
+                            <span class="fa fa-star star-btn"></span>
+                            {% endif %}
+                        </p>
+                        <p>
+                            {{comment.content}}
+                        </p>
+                      
                     </div>
                   </div>
             </div>
@@ -81,12 +109,11 @@
     </div>
     <script>
         // obtener todas las estrellas
-        /* const one = document.getElementById('first')
+        const one = document.getElementById('first')
         const two = document.getElementById('second')
         const three = document.getElementById('third')
         const four = document.getElementById('fourth')
         const five = document.getElementById('fifth')
- */
         /* const form = document
 
         const handleStarSelect = (size) => {
@@ -97,7 +124,7 @@
         handleStarSelect(2) */
 
         // versión larga - a optimizar
-        /* const handSelect = (selection) => {
+        const handSelect = (selection) => {
             switch(selection){
                 case 'first': {
                     one.classList.add('checked')
@@ -142,9 +169,5 @@
             }
         }
 
-        const arr = [one, two, three, four, five]
-         arr.forEach(item=> item.addEventListener('mouseover', (event)=>{
-            handSelect(event.target.id)
-         }))*/
     </script> 
 {% endblock %}
