@@ -8,6 +8,8 @@ from hitcount.views import HitCountDetailView
 from django.urls import reverse_lazy
 from .forms import CommentForm, DivingSpotForm
 from django.db.models import Sum
+from django.template.defaultfilters import slugify
+from django.contrib.auth.decorators import login_required
 
 class StaffRequiredMixin(object):
     """ 
@@ -73,7 +75,7 @@ class DivingSpotCreate(CreateView):
         return super().form_valid(form)
         
 
-    success_url = reverse_lazy('reviews:reviews')
+    success_url = reverse_lazy('reviews:review_home')
 
 @method_decorator(staff_member_required, name='dispatch')
 class DivingSpotUpdate(UpdateView):
@@ -82,9 +84,23 @@ class DivingSpotUpdate(UpdateView):
     template_name_suffix = '_update_form'
     
     def get_success_url(self):
-        return reverse_lazy('reviews:update', args=[self.object.id]) + '?ok'
+        return reverse_lazy('reviews:review_update', args=[self.object.id]) + '?ok'
     
 @method_decorator(staff_member_required, name='dispatch')   
 class DivingSpotDelete(DeleteView):
     model = DivingSpot
-    success_url = reverse_lazy('reviews:reviews')
+    success_url = reverse_lazy('reviews:review_home')
+@method_decorator(login_required, name = 'dispatch')
+class CommentDelete(DeleteView):
+    model = Comment
+    def get_success_url(self):
+        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'
+    
+@method_decorator(login_required, name = 'dispatch')
+class CommentUpdate(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name_suffix = '_update_form'
+    
+    def get_success_url(self):
+        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'

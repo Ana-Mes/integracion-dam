@@ -26,8 +26,10 @@
                 {{ divingspot.description|safe }}
             </div>
             {% if request.user.is_staff %}
-                <p><a href="{% url 'reviews:update' divingspot.id %}">Editar</a></p>
-                <p><a href="{% url 'reviews:delete' divingspot.id %}">Borrar</a></p>
+                <p>
+                    <a href ="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-primary mt-3">Editar</a>
+                    <a href="{% url 'reviews:review_delete' divingspot.id %}" class="btn btn-danger mt-3">Borrar</a>
+                </p>
             {% endif %}
         </div>
         <p class="fw-bold mt-3">Comentarios ({{divingspot_comments_count}})</p>
@@ -67,6 +69,15 @@
                         <p>
                             {{comment.content}}
                         </p>
+                        <p>
+                            {% if request.user == comment.author %}
+                                <a href ="{% url 'reviews:comment_update' comment.id %}" class="btn btn-primary mt-3">Editar</a>
+                            {% endif %}
+
+                            {% if request.user == comment.author or request.user.is_staff %}
+                                <a href="{% url 'reviews:comment_delete' comment.id %}" class="btn btn-danger mt-3">Borrar</a>
+                            {% endif %}
+                        </p>
                       
                     </div>
                   </div>
@@ -83,7 +94,7 @@
         <!-- Modal para agregar un comentario -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form action="{% url 'reviews:review' divingspot.id divingspot.name|slugify %}" method="POST">{% csrf_token %}
+                <form action="{% url 'reviews:review_detail' divingspot.id divingspot.name|slugify %}" method="POST">{% csrf_token %}
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Añadir comentario</h5>

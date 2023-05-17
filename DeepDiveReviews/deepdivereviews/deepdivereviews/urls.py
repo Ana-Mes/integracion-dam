@@ -3,12 +3,11 @@ URL configuration for deepdivereviews project.
 """
 from django.contrib import admin
 from profiles.urls import profiles_patterns
-from reviews.urls import reviews_patterns
 from django.urls import path, include
 from django.conf import settings
 
 urlpatterns = [
-    path('', include(reviews_patterns)),
+    path('', include('reviews.urls')),
     path('admin/', admin.site.urls),
     # Paths de Auth
     path('accounts/', include('django.contrib.auth.urls')),
