@@ -27,20 +27,43 @@
             </div>
             {% if request.user.is_staff %}
                 <p>
-                    <a href ="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-primary mt-3">Editar</a>
-                    <a href="{% url 'reviews:review_delete' divingspot.id %}" class="btn btn-danger mt-3">Borrar</a>
+                    <a href ="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-outline-primary mt-3">
+                        <span class="fa fa-pencil"></span>
+                    </a>
+                    <a href ="{% url 'reviews:review_delete' divingspot.id %}" class="btn btn-outline-danger mt-3">
+                        <span class="fa fa-trash-o"></span>
+                    </a>
                 </p>
             {% endif %}
         </div>
-        <p class="fw-bold mt-3">Comentarios ({{divingspot_comments_count}})</p>
+        {% if request.user.is_authenticated %}
+            <div class="mt-3">
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Añadir valoración
+                </button>
+            </div>
+        {% endif %}
+        <p class="fw-bold mt-3">
+            {% if divingspot.score == 0 %}
+                Sin puntuación
+            {% else %}
+                <span class="fa fa-star checked"></span>
+                {{ divingspot.score }}
+            {% endif %}
+            ·
+            {{divingspot_comments_count}} valoraciones  
+            
+        </p>
         <div class="row row-cols-3">
             {% for comment in divingspot_comments %}
             <div class="col">
                 <div class="media">
                     <img class="avatar" src="{{comment.author.profile.avatar.url}}" alt="profile image">
                     <div class="media-body">
-                        <p class="mt-0 d-inline">{{comment.author}}</h5>
-                        <p class=" float-end">
+                        <p class="mt-0 mb-0">{{comment.author}}</p>
+
+                        {{ comment.created|date:"m/d/Y" }}
+                        <p class="mt-0 mt-3">
                             <span class="fa fa-star checked star-btn" id="first"></span>
                             {% if  comment.score >= 2 %}
                             <span class="fa fa-star star-btn checked" id="second"></span>
@@ -71,11 +94,15 @@
                         </p>
                         <p>
                             {% if request.user == comment.author %}
-                                <a href ="{% url 'reviews:comment_update' comment.id %}" class="btn btn-primary mt-3">Editar</a>
+                                <a href ="{% url 'reviews:comment_update' comment.id %}" class="btn btn-outline-primary mt-3">
+                                    <span class="fa fa-pencil"></span>
+                                </a>
                             {% endif %}
 
                             {% if request.user == comment.author or request.user.is_staff %}
-                                <a href="{% url 'reviews:comment_delete' comment.id %}" class="btn btn-danger mt-3">Borrar</a>
+                                <a href="{% url 'reviews:comment_delete' comment.id %}" class="btn btn-outline-danger mt-3">
+                                    <span class="fa fa-trash-o"></span>
+                                </a>
                             {% endif %}
                         </p>
                       
@@ -84,13 +111,7 @@
             </div>
             {% endfor %}
         </div>
-        {% if request.user.is_authenticated %}
-            <div class="text-center mt-3">
-                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Añadir comentario
-                </button>
-            </div>
-        {% endif %}
+        
         <!-- Modal para agregar un comentario -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

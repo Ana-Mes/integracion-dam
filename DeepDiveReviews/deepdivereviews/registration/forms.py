@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 class UserCreationFormWithEmail(UserCreationForm):
-    email = forms.EmailField(required=True, help_text="Requerido, 254 caracteres como máximo y debe ser válido")
+    email = forms.EmailField(required=True, help_text="Requerido, 254 caracteres como máximo y debe ser válido.")
 
     class Meta:
         model = User
@@ -20,15 +20,14 @@ class UserCreationFormWithEmail(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio', 'link']
+        fields = ['avatar', 'bio']
         widgets = {
             'avatar': forms.ClearableFileInput(attrs={'class':'form-control-file mt-3'}),
-            'bio': forms.Textarea(attrs={'class':'form-control-file mt-3', 'rows':3, 'placeholder':'Biografía'}),
-            'link': forms.URLInput(attrs={'class':'form-control-file mt-3', 'placeholder':'Biografía'}),
+            'bio': forms.Textarea(attrs={'class':'form-control-file mt-3 w-100', 'rows':3, 'placeholder':'Biografía'}),
         }
 
 class EmailForm(forms.ModelForm):
-    email = forms.EmailField(required=True, help_text="Requerido. 254 carácteres como mínimo y debe ser válido.")
+    email = forms.EmailField(required=True, help_text="Requerido. 254 carácteres como máximo y debe ser válido.")
 
     class Meta:
         model = User

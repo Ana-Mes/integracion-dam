@@ -28,13 +28,12 @@ class CommentForm(forms.ModelForm):
             ('4', '4'),
             ('5', '5'),
         )
-        fields = ['title', 'content', 'score']
+        fields = ['content', 'score']
         widgets = {
-            'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Título'}),
             'content': forms.Textarea(attrs={'class':'form-control'}),
             'score': forms.Select(attrs={'class':'form-control'}, choices=choices)
 
         }
         labels = {
-            'title':'', 'content':'', 'score':'Puntuación'
+            'content':'', 'score':'Puntuación'
         }

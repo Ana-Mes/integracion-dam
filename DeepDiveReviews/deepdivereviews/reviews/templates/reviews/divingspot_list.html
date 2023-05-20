@@ -12,29 +12,31 @@
                 <img src="{{divingspot.image.url}}" class="card-img-top" style="border-radius: 5%;" alt="">
                 <div class="card-body">
                     <div class="card-title">
-                      <div class="d-inline fw-bold">{{ divingspot.name }}</div>
-                      <div class="d-inline float-end">
+                      <div class="d-sm-inline fw-bold">{{ divingspot.name }}</div>
+                      <div class="float-end">
                         {% if divingspot.score == 0 %}
                           Sin puntuación
                         {% else %}
                           <span class="fa fa-star checked"></span>
                           {{ divingspot.score }}
                         {% endif %}
-                      </p>
                     </div>
-                    <p class="card-text">{{ divingspot.description|safe }}</p>
-                    <a href="{% url 'reviews:review_detail' divingspot.id divingspot.name|slugify %}" class="stretched-link" 
+                    
+                </div>
+                <div class="card-text">
+                  <a href="{% url 'reviews:review_detail' divingspot.id divingspot.name|slugify %}" class="stretched-link" 
                       style="z-index: 1;"></a>
-                    <a href="{{divingspot.location}}" class="btn btn-primary position-relative" style="z-index: 2;" target="_blank">
+                    {{divingspot.location}}
+                    <!-- <a href="{{divingspot.location}}" class="btn btn-primary position-relative" style="z-index: 2;" target="_blank">
                       Ver en Google Maps
-                    </a>
+                    </a> -->
                     {% if request.user.is_staff %}
                       <p>
-                        <a href="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-primary position-relative mt-3"style="z-index: 2;">
-                          Editar
+                        <a href="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-outline-primary position-relative mt-3"style="z-index: 2;">
+                          <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="{% url 'reviews:review_delete' divingspot.id %}" class="btn btn-danger position-relative mt-3"style="z-index: 2;">
-                          Borrar
+                        <a href="{% url 'reviews:review_delete' divingspot.id %}" class="btn btn-outline-danger position-relative mt-3"style="z-index: 2;">
+                          <span class="fa fa-trash-o"></span>
                         </a>
                       </p>
                     {% endif %}
