@@ -18,7 +18,7 @@
                           Sin puntuación
                         {% else %}
                           <span class="fa fa-star checked"></span>
-                          {{ divingspot.score }}
+                          {{ divingspot.score|floatformat:2 }}
                         {% endif %}
                     </div>
                     
