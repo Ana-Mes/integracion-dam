@@ -86,7 +86,11 @@
                 <ul class="navbar-nav">
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span class="fa fa-user"></span>
+                      {% if not request.user.is_authenticated or not request.user.profile.avatar %}
+                        <img class="rounded-circle" src="{% static 'registration/img/no-avatar.jpg' %}" width="30" height="30" alt="profile image">
+                      {% else %}
+                        <img class="rounded-circle" src="{{request.user.profile.avatar.url}}" width="30" height="30" alt="profile image">
+                      {% endif %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                       {% if not request.user.is_authenticated %}

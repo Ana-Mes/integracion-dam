@@ -59,7 +59,11 @@
             {% for comment in divingspot_comments|slice:":6" %}
             <div class="col">
                 <div class="media">
-                    <img class="avatar" src="{{comment.author.profile.avatar.url}}" alt="profile image">
+                    {% if comment.author.profile.avatar %}
+                        <img class="avatar" src="{{comment.author.profile.avatar.url}}" class="img-fluid" alt="profile image">
+                    {% else %}
+                        <img class="avatar" src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid" alt="profile image">
+                    {% endif %}
                     <div class="media-body">
                         <p class="mt-0 mb-0">{{comment.author}}</p>
 
@@ -154,14 +158,26 @@
             <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="showCommentsModalLabel">Valoraciones</h5>
+                <h5 class="modal-title" id="showCommentsModalLabel">
+                    Valoraciones ({{divingspot_comments_count}}) ·
+                    {% if divingspot.score == 0 %}
+                        Sin puntuación
+                    {% else %}
+                        <span class="fa fa-star checked"></span>
+                        {{ divingspot.score|floatformat:2 }}
+                    {% endif %}
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {% for comment in divingspot_comments %}
                     <div class="col">
                         <div class="media">
-                            <img class="avatar" src="{{comment.author.profile.avatar.url}}" alt="profile image">
+                            {% if comment.author.profile.avatar %}
+                                <img class="avatar" src="{{comment.author.profile.avatar.url}}" class="img-fluid" alt="profile image">
+                            {% else %}
+                                <img class="avatar" src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid" alt="profile image">
+                            {% endif %}
                             <div class="media-body">
                                 <p class="mt-0 mb-0">{{comment.author}}</p>
                                     {{ comment.created|date:"m/d/Y" }}

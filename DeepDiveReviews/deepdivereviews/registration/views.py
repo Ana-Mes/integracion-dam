@@ -5,8 +5,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django import forms
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.auth import views as auth_views
 from .models import Profile
 from .forms import UserCreationFormWithEmail, ProfileForm, EmailForm
 
@@ -60,11 +60,3 @@ class EmailUpdate(UpdateView):
         form.fields['email'].widget = forms.EmailInput(
             attrs={'class':'form-control mb-2', 'placeholder':'Email'})
         return form
-
-class PasswordsChangeView(PasswordChangeView):
-    form_class = PasswordChangeForm
-    success_url = reverse_lazy('profile_password_success')
-    template_name='registration/password_change.html'
-
-def password_success(request):
-    return render(request, 'registration/password_change_success.html',)

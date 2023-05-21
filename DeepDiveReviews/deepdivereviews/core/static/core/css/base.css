@@ -18,3 +18,8 @@
   background-color: inherit !important;
   border: 0 !important;
 }
+
+.avatar-img {
+  width:100px;
+  height:100px;
+}
