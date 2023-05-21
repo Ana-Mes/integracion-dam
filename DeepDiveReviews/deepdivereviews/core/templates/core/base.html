@@ -54,12 +54,11 @@
               </li>
             </ul>
             <ul id="centrado" class="navbar-nav me-auto mb-2 mb-lg-0">
-              <form class="d-flex">
+              <form class="d-flex" action="{% url 'reviews:review_search' %}" method="get">
                 <div class="input-group shadow-sm">
-                  <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search">
+                  <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search" name="search">
                   <button class="btn btn-outline-primary" type="submit"><span class="fa fa-search"></span></button>
                 </div>
-
               </form>
             </ul>
             <!-- <span class="navbar-text">

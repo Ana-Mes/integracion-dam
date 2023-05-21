@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, reverse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
@@ -104,3 +106,10 @@ class CommentUpdate(UpdateView):
     
     def get_success_url(self):
         return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'
+    
+class ReviewSearchView(ListView):
+    model = DivingSpot
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        return DivingSpot.objects.filter(name__icontains=query).order_by('-created')
