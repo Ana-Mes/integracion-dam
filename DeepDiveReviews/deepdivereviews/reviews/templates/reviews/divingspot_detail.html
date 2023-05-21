@@ -18,11 +18,11 @@
                 {{ divingspot.score|floatformat:2 }}
             {% endif %}
         </div>
-        <div class="row row-cols-2">
-            <div class="col">
+        <div class="row">
+            <div class="col-lg-6 mb-3">
                 <img src="{{divingspot.image.url}}" class="w-100" style="border-radius: 5%;" alt="">
             </div>
-            <div class="col">
+            <div class="col-lg-6">
                 {{ divingspot.description|safe }}
             </div>
             {% if request.user.is_staff %}

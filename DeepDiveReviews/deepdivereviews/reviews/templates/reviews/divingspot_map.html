@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Mapa{% endblock %}
+{% block content %}
+<main role="main">
+    <div class="container-flex vh-100">
+        {{map|safe}}
+    </div>
+</main>
+{% endblock %}

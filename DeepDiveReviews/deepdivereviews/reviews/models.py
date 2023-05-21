@@ -12,6 +12,8 @@ class DivingSpot(models.Model):
     description = RichTextField(verbose_name="Descripción")
     image = models.ImageField(verbose_name="Imagen", upload_to="divingspot")
     location = models.TextField(verbose_name="Localización", max_length=500)
+    latitude = models.FloatField(verbose_name="Latitud")
+    longitude = models.FloatField(verbose_name="Longitud")
     score = models.FloatField(verbose_name="Puntuación", default=0)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")

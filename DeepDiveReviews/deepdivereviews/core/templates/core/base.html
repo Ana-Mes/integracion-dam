@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Estilos y fuentes del template  -->
@@ -34,23 +34,24 @@
           </symbol>
         </defs>
     </svg>
-    <!-- Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="overflow-auto">
+      <!-- Navegación -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid" id="navbar-container">
           <a class="navbar-brand text-primary fw-bold" href="{% url 'reviews:review_home' %}">
             <img src="{% load static %}{% static 'core/img/scuba-divin-colors.png' %}" width="30" height="30" alt="">
             DeepDiveReviews
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarReviews" aria-controls="navbarReviews" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarText">
+          <div class="collapse navbar-collapse" id="navbarReviews">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Lista</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'reviews:review_home' %}">Lista</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Mapa</a>
+                <a class="nav-link" href="{% url 'reviews:review_map' %}">Mapa</a>
               </li>
             </ul>
             <ul id="centrado" class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -61,34 +62,20 @@
                 </div>
               </form>
             </ul>
-            <!-- <span class="navbar-text">
-              <ul class="navbar-nav">
-                {% if not request.user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Acceder</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'signup' %}">Registro</a>
-                  </li>
-                {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'profile' %}">Perfil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
-                </li>
-                {% endif %}
-              </ul>
-            </span> -->
-            <span class="navbar-text">
-              <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul>       
+            </ul>
+            <li class="navbar-text d-flex">
                 <ul class="navbar-nav">
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {% if not request.user.is_authenticated or not request.user.profile.avatar %}
                         <img class="rounded-circle" src="{% static 'registration/img/no-avatar.jpg' %}" width="30" height="30" alt="profile image">
+                        {% if request.user.is_authenticated and not request.user.profile.avatar %}
+                          {{request.user}}
+                        {% endif %}
                       {% else %}
                         <img class="rounded-circle" src="{{request.user.profile.avatar.url}}" width="30" height="30" alt="profile image">
+                        {{request.user}}
                       {% endif %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -110,13 +97,14 @@
                     </ul>
                   </li>
                 </ul>
-              </div>
-            </span>
+            </li>
           </div>
         </div>
       </nav>
 
-    <!-- Contenido -->
-    {% block content %}{% endblock %}
+      <!-- Contenido -->
+      {% block content %}{% endblock %}
+    </div>
+    
 </body>
 </html>

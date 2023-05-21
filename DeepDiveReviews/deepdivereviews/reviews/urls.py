@@ -10,6 +10,7 @@ divingspot_patterns = [
     path('create/', views.DivingSpotCreate.as_view(), name="review_create"),
     path('update/<int:pk>/', views.DivingSpotUpdate.as_view(), name='review_update'),
     path('delete/<int:pk>/', views.DivingSpotDelete.as_view(), name='review_delete'),
+    path('map', views.divingspot_map, name='review_map'),
 ]
 comments_patterns = [
     path('update/<int:pk>/', views.CommentUpdate.as_view(), name='comment_update'),

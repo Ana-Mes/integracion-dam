@@ -1,13 +1,17 @@
-#centrado {
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+@media screen and (min-width: 670px){
+  #centrado {
+      position: absolute;
+      top: 50%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+}
 
-.container-fluid{
-  padding-right: 10rem!important;
-  padding-left: 10rem!important;
+@media screen and (min-width: 670px){
+  .container-fluid{
+    padding-right: 10rem!important;
+    padding-left: 10rem!important;
+  }
 }
 
 .checked {

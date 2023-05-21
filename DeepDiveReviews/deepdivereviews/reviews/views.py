@@ -12,6 +12,7 @@ from .forms import CommentForm, DivingSpotForm
 from django.db.models import Sum
 from django.template.defaultfilters import slugify
 from django.contrib.auth.decorators import login_required
+import folium, branca
 
 class StaffRequiredMixin(object):
     """ 
@@ -112,4 +113,26 @@ class ReviewSearchView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('search')
-        return DivingSpot.objects.filter(name__icontains=query).order_by('-created')
+        data = DivingSpot.objects.filter(name__icontains=query)|DivingSpot.objects.filter(description__icontains=query)|DivingSpot.objects.filter(location__icontains=query)
+        return data.order_by('-created')
+    
+def divingspot_map(request):
+    #Obtener puntos de inmersión
+    divingspots = DivingSpot.objects.all()
+    
+    #Crear mapa
+    map = folium.Map(location=[28.15, -16.5], zoom_start=9)
+    for divingspot in divingspots:
+        url = reverse('reviews:review_detail', args=[divingspot.id, slugify(divingspot.name)])
+        folium.Marker([divingspot.latitude, divingspot.longitude], tooltip=divingspot.name,
+                    popup=f"<a href='{url}' target='_parent'>Ver "+divingspot.name+"</a>").add_to(map)
+    fig = branca.element.Figure(height="100%")
+    fig.add_child(map)
+    map = map._repr_html_()
+    
+    context = {
+        'map' : map,
+
+    }
+    
+    return render(request, 'reviews/divingspot_map.html', context)
