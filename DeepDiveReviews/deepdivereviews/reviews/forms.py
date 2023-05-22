@@ -18,6 +18,7 @@ class DivingSpotForm(forms.ModelForm):
         labels = {
             'name':'', 'description':'', 'image':'', 'location':'', 'latitude':'Latitud', 'longitude':'Longitud'
         }
+        
 
 class CommentForm(forms.ModelForm):
 
@@ -30,12 +31,13 @@ class CommentForm(forms.ModelForm):
             ('4', '4'),
             ('5', '5'),
         )
-        fields = ['content', 'score']
+        fields = ['score', 'content', 'image']
         widgets = {
+            'score': forms.Select(attrs={'class':'form-control'}, choices=choices),
             'content': forms.Textarea(attrs={'class':'form-control'}),
-            'score': forms.Select(attrs={'class':'form-control'}, choices=choices)
+            'image': forms.ClearableFileInput(attrs={'class':'form-control'}),
 
         }
         labels = {
-            'content':'', 'score':'Puntuación'
+            'score':'Puntuación', 'content':'',  'image':''
         }

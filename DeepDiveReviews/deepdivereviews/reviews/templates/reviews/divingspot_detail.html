@@ -113,7 +113,6 @@
                                 </a>
                             {% endif %}
                         </p>
-                      
                     </div>
                   </div>
             </div>
@@ -210,6 +209,9 @@
                                 <p>
                                     {{comment.content|safe}}
                                 </p>
+                                {% if comment.image %}
+                                    <img src="{{comment.image.url}}" class="img-fluid" alt="comment image">
+                                {% endif %}
                                 <p>
                                     {% if request.user == comment.author %}
                                         <a href ="{% url 'reviews:comment_update' comment.id %}" class="btn btn-outline-primary mt-3">

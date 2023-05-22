@@ -26,10 +26,10 @@
                 <div class="card-text">
                   <a href="{% url 'reviews:review_detail' divingspot.id divingspot.name|slugify %}" class="stretched-link" 
                       style="z-index: 1;"></a>
-                    {{divingspot.location}}
-                    <!-- <a href="{{divingspot.location}}" class="btn btn-primary position-relative" style="z-index: 2;" target="_blank">
-                      Ver en Google Maps
-                    </a> -->
+                      <svg class="svg-icon" style="width: 20; height: 20;">
+                        <use xlink:href="#md-pin"></use>
+                      </svg> 
+                      <span class="align-middle">{{divingspot.location}}</span>
                     {% if request.user.is_staff %}
                       <p>
                         <a href="{% url 'reviews:review_update' divingspot.id %}" class="btn btn-outline-primary position-relative mt-3"style="z-index: 2;">
