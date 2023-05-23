@@ -12,6 +12,7 @@ from .forms import CommentForm, DivingSpotForm
 from django.db.models import Sum
 from django.template.defaultfilters import slugify
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 import folium, branca
 
 class StaffRequiredMixin(object):
@@ -38,7 +39,7 @@ class ReviewDetailView(HitCountDetailView):
             form.instance.divingspot = divingspot
             form.save()
 
-            return self.get(request, *args, **kwargs) 
+            return HttpResponseRedirect(reverse_lazy('reviews:review_detail', args=[divingspot.id, slugify(divingspot.name)]))
         
     def get_context_data(self, **kwargs):
         divingspot = self.get_object()
@@ -63,8 +64,7 @@ class ReviewDetailView(HitCountDetailView):
         })
         return context
     
-"""     def get_success_url(self):
-        return reverse_lazy('reviews:detail', args=[self.object.id]) """
+
         
 
 
@@ -108,6 +108,9 @@ class CommentUpdate(UpdateView):
     def get_success_url(self):
         return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'
     
+class CommentListView(ListView):
+    model = Comment
+    
 class ReviewSearchView(ListView):
     model = DivingSpot
 
@@ -115,6 +118,7 @@ class ReviewSearchView(ListView):
         query = self.request.GET.get('search')
         data = DivingSpot.objects.filter(name__icontains=query)|DivingSpot.objects.filter(description__icontains=query)|DivingSpot.objects.filter(location__icontains=query)
         return data.order_by('-created')
+    
     
 def divingspot_map(request):
     #Obtener puntos de inmersión

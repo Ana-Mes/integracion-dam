@@ -30,7 +30,7 @@ class Comment(models.Model):
     divingspot = models.ForeignKey('DivingSpot', on_delete=models.CASCADE, verbose_name="Punto de inmersión")
     content = models.TextField(verbose_name="Contenido", blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Autor", related_name="user_comments")
     image = models.ImageField(verbose_name="Imagen", upload_to="comment", blank=True, null=True)
     score = models.IntegerField(verbose_name="Puntuación", default=0,
             validators=[

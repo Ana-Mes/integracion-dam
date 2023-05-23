@@ -13,6 +13,7 @@ divingspot_patterns = [
     path('map', views.divingspot_map, name='review_map'),
 ]
 comments_patterns = [
+    path('', views.CommentListView.as_view(), name='comment_list'),
     path('update/<int:pk>/', views.CommentUpdate.as_view(), name='comment_update'),
     path('delete/<int:pk>/', views.CommentDelete.as_view(), name='comment_delete'),
 ]

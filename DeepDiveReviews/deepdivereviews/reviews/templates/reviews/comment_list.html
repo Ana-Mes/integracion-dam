@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Mis valoraciones{% endblock %}
+{% block content %}
+<style>
+  .avatar  { width:50px; height:50px; float:left; margin-right:10px; }
+</style>
+
+<div class="container-fluid">
+    <div class="row  mt-3">
+      {% for comment in request.user.user_comments.all %}
+      <div class="col-6">
+        <div class="media">
+          <p class="fw-bold">{{ comment.divingspot }}</p>
+          {% if comment.author.profile.avatar %}
+              <img class="avatar" src="{{comment.author.profile.avatar.url}}" class="img-fluid" alt="profile image">
+          {% else %}
+              <img class="avatar" src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid" alt="profile image">
+          {% endif %}
+            <div class="media-body">
+                <p class="mt-0 mb-0">{{comment.author}}</p>
+                {{ comment.created|date:"m/d/Y" }}
+                <p class="mt-0 mt-0">
+                    <span class="fa fa-star checked star-btn" id="first"></span>
+                    {% if  comment.score >= 2 %}
+                    <span class="fa fa-star star-btn checked" id="second"></span>
+                    {% else  %}
+                    <span class="fa fa-star star-btn" id="second"></span>
+                    {% endif %}
+
+                    {% if  comment.score >= 3 %}
+                    <span class="fa fa-star star-btn checked"></span>
+                    {% else  %}
+                    <span class="fa fa-star star-btn"></span>
+                    {% endif %}
+                    
+                    {% if  comment.score >= 4 %}
+                    <span class="fa fa-star star-btn checked"></span>
+                    {% else  %}
+                    <span class="fa fa-star star-btn"></span>
+                    {% endif %}
+
+                    {% if  comment.score == 5 %}
+                    <span class="fa fa-star star-btn checked"></span>
+                    {% else  %}
+                    <span class="fa fa-star star-btn"></span>
+                    {% endif %}
+                </p>
+                <p>
+                    {{comment.content|safe}}
+                </p>
+                <p>
+                    {% if request.user == comment.author %}
+                        <a href ="{% url 'reviews:comment_update' comment.id %}" class="btn btn-outline-primary mt-3">
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                    {% endif %}
+
+                    {% if request.user == comment.author or request.user.is_staff %}
+                        <a href="{% url 'reviews:comment_delete' comment.id %}" class="btn btn-outline-danger mt-3">
+                            <span class="fa fa-trash-o"></span>
+                        </a>
+                    {% endif %}
+                </p>
+            </div>
+          </div>
+    </div>
+      {% endfor %}
+</div>
+{% endblock %}

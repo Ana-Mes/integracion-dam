@@ -52,7 +52,6 @@
             {% endif %}
             ·
             {{divingspot_comments_count}} valoraciones  
-            
         </p>
         <!-- Comentarios -->
         <div class="row row-cols-3">
@@ -119,12 +118,9 @@
             {% endfor %}
         </div>
 
-        <!-- Si hay menos de 6 comentarios no se muestra el botón de ver valoraciones -->
-        {% if divingspot_comments|length > 6 %}
-            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#showCommentsModal">
-                Ver todas las valoraciones ({{divingspot_comments_count}})
-            </button>
-        {% endif %}
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#showCommentsModal">
+            Ver todas las valoraciones en detalle ({{divingspot_comments_count}})
+        </button>
 
         
         <!-- Modal para agregar una valoración -->
