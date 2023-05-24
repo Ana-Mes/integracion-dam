@@ -19,7 +19,7 @@
           {% endif %}
             <div class="media-body">
                 <p class="mt-0 mb-0">{{comment.author}}</p>
-                {{ comment.created|date:"m/d/Y" }}
+                {{ comment.created|date:"d/m/Y" }}
                 <p class="mt-0 mt-0">
                     <span class="fa fa-star checked star-btn" id="first"></span>
                     {% if  comment.score >= 2 %}

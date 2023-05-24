@@ -20,5 +20,5 @@ comments_patterns = [
 
 urlpatterns = [
     path('', include(divingspot_patterns)),
-    path('comment', include(comments_patterns)),
+    path('comment/', include(comments_patterns)),
 ]

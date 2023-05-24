@@ -43,16 +43,15 @@
                 </button>
             </div>
         {% endif %}
+        {% if divingspot_comments %}
         <p class="fw-bold mt-3">
-            {% if divingspot.score == 0 %}
-                Sin puntuación
-            {% else %}
-                <span class="fa fa-star checked"></span>
-                {{ divingspot.score|floatformat:2 }}
-            {% endif %}
+
+            <span class="fa fa-star checked"></span>
+            {{ divingspot.score|floatformat:2 }}
             ·
             {{divingspot_comments_count}} valoraciones  
         </p>
+
         <!-- Comentarios -->
         <div class="row row-cols-3">
             {% for comment in divingspot_comments|slice:":6" %}
@@ -66,7 +65,7 @@
                     <div class="media-body">
                         <p class="mt-0 mb-0">{{comment.author}}</p>
 
-                        {{ comment.created|date:"m/d/Y" }}
+                        {{ comment.created|date:"d/m/Y" }}
                         <p class="mt-0 mt-3">
                             <span class="fa fa-star checked star-btn" id="first"></span>
                             {% if  comment.score >= 2 %}
@@ -118,9 +117,10 @@
             {% endfor %}
         </div>
 
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#showCommentsModal">
-            Ver todas las valoraciones en detalle ({{divingspot_comments_count}})
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#showCommentsModal"> 
+                Ver todas las valoraciones en detalle ({{divingspot_comments_count}})            
         </button>
+        {% endif %}
 
         
         <!-- Modal para agregar una valoración -->
@@ -175,7 +175,7 @@
                             {% endif %}
                             <div class="media-body">
                                 <p class="mt-0 mb-0">{{comment.author}}</p>
-                                    {{ comment.created|date:"m/d/Y" }}
+                                    {{ comment.created|date:"d/m/Y" }}
                                 <p class="mt-0 mt-3">
                                     <span class="fa fa-star checked star-btn" id="first"></span>
                                     {% if  comment.score >= 2 %}
@@ -234,68 +234,5 @@
             </div>
         </div>
         
-    </div>
-    <script>
-        // obtener todas las estrellas
-        const one = document.getElementById('first')
-        const two = document.getElementById('second')
-        const three = document.getElementById('third')
-        const four = document.getElementById('fourth')
-        const five = document.getElementById('fifth')
-        /* const form = document
-
-        const handleStarSelect = (size) => {
-            const children = form.children 
-            console.log(children)
-        }
-
-        handleStarSelect(2) */
-
-        // versión larga - a optimizar
-        const handSelect = (selection) => {
-            switch(selection){
-                case 'first': {
-                    one.classList.add('checked')
-                    two.classList.remove('checked')
-                    three.classList.remove('checked')
-                    four.classList.remove('checked')
-                    five.classList.remove('checked')
-                    return
-                }
-                case 'second': {
-                    one.classList.add('checked')
-                    two.classList.add('checked')
-                    three.classList.remove('checked')
-                    four.classList.remove('checked')
-                    five.classList.remove('checked')
-                    return
-                }
-                case 'third': {
-                    one.classList.add('checked')
-                    two.classList.add('checked')
-                    three.classList.add('checked')
-                    four.classList.remove('checked')
-                    five.classList.remove('checked')
-                    return
-                }
-                case 'fourth': {
-                    one.classList.add('checked')
-                    two.classList.add('checked')
-                    three.classList.add('checked')
-                    four.classList.add('checked')
-                    five.classList.remove('checked')
-                    return
-                }
-                case 'fifth': {
-                    one.classList.add('checked')
-                    two.classList.add('checked')
-                    three.classList.add('checked')
-                    four.classList.add('checked')
-                    five.classList.add('checked')
-                    return
-                }
-            }
-        }
-
-    </script> 
+    </div> 
 {% endblock %}

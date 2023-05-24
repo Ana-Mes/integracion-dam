@@ -39,7 +39,13 @@ class ReviewDetailView(HitCountDetailView):
             form.instance.divingspot = divingspot
             form.save()
 
+
+            divingspot.score = get_score(divingspot)
+            
+            divingspot.save()
+
             return HttpResponseRedirect(reverse_lazy('reviews:review_detail', args=[divingspot.id, slugify(divingspot.name)]))
+        
         
     def get_context_data(self, **kwargs):
         divingspot = self.get_object()
@@ -47,7 +53,7 @@ class ReviewDetailView(HitCountDetailView):
         divingspot_comments = Comment.objects.all().filter(divingspot=self.object.id)
         comments_score = divingspot_comments.aggregate(Sum('score'))['score__sum']
 
-        if(comments_score is None):
+        if(comments_score is None or divingspot_comments_count == 0):
             divingspot.score = 0
 
         else:
@@ -65,7 +71,20 @@ class ReviewDetailView(HitCountDetailView):
         return context
     
 
-        
+def get_score(divingspot):
+    divingspot_comments_count = Comment.objects.all().filter(divingspot=divingspot.id).count()
+    divingspot_comments = Comment.objects.all().filter(divingspot=divingspot.id)
+    comments_score = divingspot_comments.aggregate(Sum('score'))['score__sum']
+    divingspot_score =  0
+
+    if(comments_score is None or divingspot_comments_count == 0):
+        divingspot_score = 0
+
+    else:
+        divingspot_score = comments_score/divingspot_comments_count
+    
+    return divingspot_score
+
 
 
 @method_decorator(staff_member_required, name='dispatch')
@@ -97,7 +116,7 @@ class DivingSpotDelete(DeleteView):
 class CommentDelete(DeleteView):
     model = Comment
     def get_success_url(self):
-        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'
+        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)])
     
 @method_decorator(login_required, name = 'dispatch')
 class CommentUpdate(UpdateView):
@@ -106,8 +125,10 @@ class CommentUpdate(UpdateView):
     template_name_suffix = '_update_form'
     
     def get_success_url(self):
-        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)]) + '?ok'
+        return reverse_lazy('reviews:review_detail', args=[self.object.divingspot.id, slugify(self.object.divingspot.name)])
     
+
+@method_decorator(login_required, name = 'dispatch')
 class CommentListView(ListView):
     model = Comment
     
