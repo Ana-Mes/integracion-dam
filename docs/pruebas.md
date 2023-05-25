@@ -8,3 +8,4 @@
 - Cambio de contraseña y/o email de un usuario
 - Comprobar que la página sea responsive
 - Intentar enviar formularios no válidos
+- Intentar ingresar un usuario con el mismo nombre o email que otro usuario que ya está registrado en el sistema
