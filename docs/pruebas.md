@@ -1,7 +1,10 @@
 # Pruebas
 
-Detección de fallos cometidos en las etapadas anteriores para corregirlos. Elaborar planes de pruebas a distintos niveles: pruebas unitarias, pruebas de integración, pruebas con usuarios, ...
-
-Incluye en este apartado la documentación de las pruebas que te planteas realizar.
-
-También la documentación resultante de las pruebas realizadas con la confimación de su correcto funcionamiento y las conclusiones que se puedan extraer de las mismas. 
+-Creación, eliminación y edición de puntos de inmersión
+-Creación, eliminación y edición de comentarios
+-Creación de usuarios
+-Intentar acceder con un usuario normal a páginas no pemitidas a los usuarios que no son administradores
+-Edición de perfiles de usuarios
+-Cambio de contraseña y/o email de un usuario
+-Comprobar que la página sea responsive
+-Intentar enviar formularios no válidos
