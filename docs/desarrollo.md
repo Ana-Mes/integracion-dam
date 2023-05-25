@@ -9,3 +9,4 @@
 - JavaScript: lenguaje de programación para el frontend
 - [Visual Studio Code](https://code.visualstudio.com/): editor de código
 - [MySQL](https://www.mysql.com/): base de datos
+- [PythonAnywhere](https://www.pythonanywhere.com/): despliegue de la aplicación
